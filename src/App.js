@@ -48,8 +48,8 @@ const App = () => {
                         </div>
                         <div>
                         <Routes>
-                            <Route path="/" element="Metrics" />
-                            <Route path="/sales-metrics" element="Metrics" />
+                            <Route path="/" element="Sales Metrics" />
+                            <Route path="/sales-metrics" element="Sales Metrics" />
                         </Routes>
                         </div>
                     </div>
