@@ -46,6 +46,11 @@ const App = () => {
                         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
                             <p>Navbar</p>
                         </div>
+                        <div>
+                        <Routes>
+                            <Route path="/" element="Metrics" />
+                        </Routes>
+                        </div>
                     </div>
                 </div>
             </BrowserRouter>
