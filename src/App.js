@@ -60,7 +60,8 @@ const App = () => {
                             <Route path="/suppliers" element="Suppliers" />
                             <Route path="/products" element="Products" />
                             <Route path="/product-categories" element="ProductsCategories" />
-                            <Route path="/stock" element="Stock" />                            
+                            <Route path="/stock" element="Stock" />          
+                            <Route path="/locations" element="Locations" />
                         </Routes>
                         </div>
                     </div>
