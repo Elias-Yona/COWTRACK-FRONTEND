@@ -48,8 +48,12 @@ const App = () => {
                         </div>
                         <div>
                         <Routes>
+                            {/* dashboard  */}
                             <Route path="/" element="Sales Metrics" />
                             <Route path="/sales-metrics" element="Sales Metrics" />
+
+                            {/* pages  */}
+                            <Route path="/products" element="Products" />
                         </Routes>
                         </div>
                     </div>
