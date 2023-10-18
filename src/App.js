@@ -54,6 +54,7 @@ const App = () => {
 
                             {/* pages  */}
                             <Route path="/customers" element="Customers" />
+                            <Route path="/salespersons" element="Salespersons" />
                             <Route path="/products" element="Products" />
                             <Route path="/product-categories" element="ProductsCategories" />
                             <Route path="/stock" element="Stock" />                            
