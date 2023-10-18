@@ -63,6 +63,7 @@ const App = () => {
                             <Route path="/stock" element="Stock" />          
                             <Route path="/locations" element="Locations" />
                             <Route path="/branches" element="Branches" />
+                            <Route path="/cart" element="Cart" />
                         </Routes>
                         </div>
                     </div>
