@@ -64,6 +64,7 @@ const App = () => {
                             <Route path="/locations" element="Locations" />
                             <Route path="/branches" element="Branches" />
                             <Route path="/cart" element="Cart" />
+                            <Route path="/payment-methods" element="PaymentMethods" />
                         </Routes>
                         </div>
                     </div>
