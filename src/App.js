@@ -3,6 +3,27 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
+import { Navbar, Footer, Sidebar, ThemeSettings } from "./components";
+import {
+    Branches,
+    Cart,
+    ColorPicker,
+    Customers,
+    Locations,
+    Managers,
+    PaymentMethods,
+    ProductCategories,
+    Products,
+    Sales,
+    SalesMetrics,
+    Salespersons,
+    Stock,
+    StockDistributions,
+    StockTransfers,
+    Supervisors,
+    Suppliers,
+} from "./pages";
+
 import "./App.css";
 
 const App = () => {
@@ -40,45 +61,70 @@ const App = () => {
                     )}
 
                     <div
-                        className={
-                            `dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full ${activeMenu ? 'md:ml-72 ' : 'flex-2'}`
-                    }>
+                        className={`dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-72 w-full ${
+                            activeMenu ? "md:ml-72 " : "flex-2"
+                        }`}
+                    >
                         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
                             <p>Navbar</p>
                         </div>
                         <div>
-                        <Routes>
-                            {/* dashboard  */}
-                            <Route path="/" element="Sales Metrics" />
-                            <Route path="/sales-metrics" element="Sales Metrics" />
+                            <Routes>
+                                {/* dashboard  */}
+                                <Route path="/" element="Sales Metrics" />
+                                <Route
+                                    path="/sales-metrics"
+                                    element="Sales Metrics"
+                                />
 
-                            {/* pages  */}
-                            <Route path="/customers" element="Customers" />
-                            <Route path="/salespersons" element="Salespersons" />
-                            <Route path="/supervisors" element="Supervisors" />
-                            <Route path="/managers" element="Managers" />
-                            <Route path="/suppliers" element="Suppliers" />
-                            <Route path="/products" element="Products" />
-                            <Route path="/product-categories" element="ProductCategories" />         
-                            <Route path="/locations" element="Locations" />
-                            <Route path="/branches" element="Branches" />
-                            <Route path="/cart" element="Cart" />
-                            <Route path="/payment-methods" element="PaymentMethods" />
-                            <Route path="/sales" element="Sales" />
-                            <Route path="/stock" element="Stock" /> 
-                            <Route path="/stock-transfers" element="StockTransfers" />
-                            <Route path="/stock-distributions" element="StockDistributions" />
+                                {/* pages  */}
+                                <Route path="/customers" element="Customers" />
+                                <Route
+                                    path="/salespersons"
+                                    element="Salespersons"
+                                />
+                                <Route
+                                    path="/supervisors"
+                                    element="Supervisors"
+                                />
+                                <Route path="/managers" element="Managers" />
+                                <Route path="/suppliers" element="Suppliers" />
+                                <Route path="/products" element="Products" />
+                                <Route
+                                    path="/product-categories"
+                                    element="ProductCategories"
+                                />
+                                <Route path="/locations" element="Locations" />
+                                <Route path="/branches" element="Branches" />
+                                <Route path="/cart" element="Cart" />
+                                <Route
+                                    path="/payment-methods"
+                                    element="PaymentMethods"
+                                />
+                                <Route path="/sales" element="Sales" />
+                                <Route path="/stock" element="Stock" />
+                                <Route
+                                    path="/stock-transfers"
+                                    element="StockTransfers"
+                                />
+                                <Route
+                                    path="/stock-distributions"
+                                    element="StockDistributions"
+                                />
 
-                            {/* charts  */}
-                            <Route path="/line" element="Line" />
-                            <Route path="/area" element="Area" />
-                            <Route path="/bar" element="Bar" />
-                            <Route path="/pie" element="Pie" />
-                            <Route path="/financial" element="Financial" />
-                            <Route path="/color-mapping" element="ColorMapping" />
-                            <Route path="/pyramid" element="Pyramid" />
-                            <Route path="/stacked" element="Stacked" />
-                        </Routes>
+                                {/* charts  */}
+                                <Route path="/line" element="Line" />
+                                <Route path="/area" element="Area" />
+                                <Route path="/bar" element="Bar" />
+                                <Route path="/pie" element="Pie" />
+                                <Route path="/financial" element="Financial" />
+                                <Route
+                                    path="/color-mapping"
+                                    element="ColorMapping"
+                                />
+                                <Route path="/pyramid" element="Pyramid" />
+                                <Route path="/stacked" element="Stacked" />
+                            </Routes>
                         </div>
                     </div>
                 </div>
