@@ -8,6 +8,7 @@ import {
     Branches,
     Cart,
     ColorPicker,
+    ColorMapping,
     Customers,
     Locations,
     Managers,
@@ -22,6 +23,13 @@ import {
     StockTransfers,
     Supervisors,
     Suppliers,
+    Line,
+    Area,
+    Bar,
+    Financial,
+    Pie,
+    Pyramid,
+    Stacked
 } from "./pages";
 
 import "./App.css";
@@ -52,11 +60,11 @@ const App = () => {
 
                     {activeMenu ? (
                         <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white">
-                            Sidebar
+                            <Sidebar />
                         </div>
                     ) : (
                         <div className="w-0 dark:bg-secondary-dark-bg">
-                            Sidebar 2
+                            <Sidebar />
                         </div>
                     )}
 
@@ -66,64 +74,64 @@ const App = () => {
                         }`}
                     >
                         <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
-                            <p>Navbar</p>
+                            <Navbar />
                         </div>
                         <div>
                             <Routes>
                                 {/* dashboard  */}
-                                <Route path="/" element="Sales Metrics" />
+                                <Route path="/" element={<SalesMetrics />} />
                                 <Route
                                     path="/sales-metrics"
-                                    element="Sales Metrics"
+                                    element={<SalesMetrics />}
                                 />
 
                                 {/* pages  */}
-                                <Route path="/customers" element="Customers" />
+                                <Route path="/customers" element={<Customers />} />
                                 <Route
                                     path="/salespersons"
-                                    element="Salespersons"
+                                    element={<Salespersons />}
                                 />
                                 <Route
                                     path="/supervisors"
-                                    element="Supervisors"
+                                    element={<Supervisors />}
                                 />
-                                <Route path="/managers" element="Managers" />
-                                <Route path="/suppliers" element="Suppliers" />
-                                <Route path="/products" element="Products" />
+                                <Route path="/managers" element={<Managers />} />
+                                <Route path="/suppliers" element={<Suppliers />} />
+                                <Route path="/products" element={<Products />} />
                                 <Route
                                     path="/product-categories"
-                                    element="ProductCategories"
+                                    element={<ProductCategories />}
                                 />
-                                <Route path="/locations" element="Locations" />
-                                <Route path="/branches" element="Branches" />
-                                <Route path="/cart" element="Cart" />
+                                <Route path="/locations" element={<Locations />} />
+                                <Route path="/branches" element={<Branches />} />
+                                <Route path="/cart" element={<Cart />} />
                                 <Route
                                     path="/payment-methods"
-                                    element="PaymentMethods"
+                                    element={<PaymentMethods />}
                                 />
-                                <Route path="/sales" element="Sales" />
-                                <Route path="/stock" element="Stock" />
+                                <Route path="/sales" element={<Sales />} />
+                                <Route path="/stock" element={<Stock />} />
                                 <Route
                                     path="/stock-transfers"
-                                    element="StockTransfers"
+                                    element={<StockTransfers />}
                                 />
                                 <Route
                                     path="/stock-distributions"
-                                    element="StockDistributions"
+                                    element={<StockDistributions />}
                                 />
 
                                 {/* charts  */}
-                                <Route path="/line" element="Line" />
-                                <Route path="/area" element="Area" />
-                                <Route path="/bar" element="Bar" />
-                                <Route path="/pie" element="Pie" />
-                                <Route path="/financial" element="Financial" />
+                                <Route path="/line" element={<Line />} />
+                                <Route path="/area" element={<Area />} />
+                                <Route path="/bar" element={<Bar />} />
+                                <Route path="/pie" element={<Pie />} />
+                                <Route path="/financial" element={<Financial />} />
                                 <Route
                                     path="/color-mapping"
-                                    element="ColorMapping"
+                                    element={<ColorMapping />}
                                 />
-                                <Route path="/pyramid" element="Pyramid" />
-                                <Route path="/stacked" element="Stacked" />
+                                <Route path="/pyramid" element={<Pyramid />} />
+                                <Route path="/stacked" element={<Stacked />} />
                             </Routes>
                         </div>
                     </div>
