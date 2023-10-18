@@ -67,6 +67,7 @@ const App = () => {
                             <Route path="/sales" element="Sales" />
                             <Route path="/stock" element="Stock" /> 
                             <Route path="/stock-transfers" element="StockTransfers" />
+                            <Route path="/stock-distributions" element="StockDistributions" />
                         </Routes>
                         </div>
                     </div>
