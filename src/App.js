@@ -65,6 +65,8 @@ const App = () => {
                             <Route path="/cart" element="Cart" />
                             <Route path="/payment-methods" element="PaymentMethods" />
                             <Route path="/sales" element="Sales" />
+                            <Route path="/stock" element="Stock" /> 
+                            <Route path="/stock-transfers" element="StockTransfers" />
                         </Routes>
                         </div>
                     </div>
