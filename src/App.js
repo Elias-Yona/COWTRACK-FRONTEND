@@ -54,6 +54,7 @@ const App = () => {
 
                             {/* pages  */}
                             <Route path="/products" element="Products" />
+                            <Route path="/product-categories" element="ProductsCategories" />                            
                         </Routes>
                         </div>
                     </div>
