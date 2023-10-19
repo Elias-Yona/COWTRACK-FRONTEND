@@ -1,1 +1,2 @@
--   [x] The button for closing the sidebar is not visible
+- [x] The button for closing the sidebar is not visible
+- [] Handle sidebar on mobile devices
