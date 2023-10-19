@@ -26,7 +26,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 );
 
 const Navbar = () => {
-  const { activeMenu, setActiveMenu, handleClick} = useStateContext();
+  const { activeMenu, setActiveMenu, handleClick, isClicked} = useStateContext();
 
   const handleActiveMenu = () => setActiveMenu(!activeMenu);
 
@@ -53,6 +53,7 @@ const Navbar = () => {
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
         </TooltipComponent>
+        {isClicked.userProfile && (<UserProfile />)}
       </div>
     </div>
   )
