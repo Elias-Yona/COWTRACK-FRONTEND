@@ -1,2 +1,3 @@
-- [x] The button for closing the sidebar is not visible
-- [] Handle sidebar on mobile devices
+-   [x] The button for closing the sidebar is not visible
+-   [] Handle sidebar on mobile devices
+-   [] Add detail template for each record
