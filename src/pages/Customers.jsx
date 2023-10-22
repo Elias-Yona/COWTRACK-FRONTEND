@@ -1,83 +1,144 @@
-import React, { useEffect, useState } from 'react'
-import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inject, Edit, Toolbar, Sort, Filter } from '@syncfusion/ej2-react-grids';
-import { TailSpin } from  'react-loader-spinner'
+import React, { useEffect, useState } from "react";
+import {
+    GridComponent,
+    ColumnsDirective,
+    ColumnDirective,
+    Page,
+    Selection,
+    Inject,
+    Edit,
+    Toolbar,
+    Sort,
+    Filter,
+} from "@syncfusion/ej2-react-grids";
+import { TailSpin } from "react-loader-spinner";
 
-import { customersGrid } from '../utils/grids';
-import { Header } from '../components';
-import { fetchCustomersData } from '../utils/data'
+import { CustomerGrid } from "../utils/grids";
+import { Header } from "../components";
+import { fetchCustomersData } from "../utils/data";
 
 
 const Customers = () => {
-  const selectionsettings = { persistSelection: true };
-  const toolbarOptions = ['Delete'];
-  const editing = { allowDeleting: true, allowEditing: true };
-  const [data, setData] = useState([]);
-  const [pageData, setPageData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+    const selectionsettings = { persistSelection: true };
+    const toolbarOptions = ["Add", "Edit", "Delete"];
+    const editing = { allowDeleting: true, allowEditing: true, allowAdding: true, mode: "Dialog" };
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const customersData = await fetchCustomersData(); // Await the fetch operation
-      
-      const pData = customersData.map((item) => ({
-        CustomerID: item.customer_id,
-        CustomerName: `${item.first_name} ${item.last_name}`,
-        CustomerPhoneNumber: item.phone_number,
-        CustomerEmail: item.email,
-        CustomerDateJoined: new Date(item.date_joined).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }),
-        CustomerImage: `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`
-      }));
-  
-      setData(customersData);
-      setPageData(pData);
-      setIsLoading(false);
-    };
-  
-    if (pageData.length === 0) {
-      setIsLoading(true);
-      fetchData();
-    } else {
-      setIsLoading(false);
+    
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const customersData = await fetchCustomersData();
+            const pageData = customersData.map((item) => ({
+              ...item,
+              customer_image: `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`,
+            }));
+
+            setData(pageData);
+            setIsLoading(false);
+        };
+
+        if (data.length === 0) {
+            setIsLoading(true);
+            fetchData();
+        } else {
+            setIsLoading(false);
+        }
+
+        console.log(data);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
+
+    function actionBegin(args) {
+        console.log(this.columns)
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            for (var i = 0; i < this.columns.length; i++) {
+                if (this.columns[i].headerText === "Name") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field === "first_name") {
+                    this.columns[i].visible = true;
+                }
+                else if (this.columns[i].field === "last_name") {
+                    this.columns[i].visible = true;
+                }
+                else if (this.columns[i].field === "email") {
+                    this.columns[i].visible = true;
+                }
+            }
+        }
     }
-  
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageData]);
-  
-  return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Customers" />
-      {isLoading ? (
-        <div className="flex justify-center">
-          <TailSpin
-            height="50"
-            width="50"
-            color="blue"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-        </div>
-      ) : (
-        <GridComponent
-          dataSource={pageData}
-          enableHover={false}
-          allowPaging
-          pageSettings={{ pageCount: 1 }}
-          selectionSettings={selectionsettings}
-          toolbar={toolbarOptions}
-          editSettings={editing}
-          allowSorting
-        >
-          <ColumnsDirective>
-            {customersGrid.map((item, index) => <ColumnDirective key={index} {...item} />)}
-          </ColumnsDirective>
-          <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />
-        </GridComponent>
-      )}
-    </div>
-  )
-}
 
-export default Customers
+    function actionComplete(args) {
+        console.log(this.columns)
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            for (var i = 0; i < this.columns.length; i++) {
+                if (this.columns[i].headerText == "Name") {
+                    this.columns[i].visible = true;
+                }
+                else if (this.columns[i].field == "first_name") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "last_name") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "email") {
+                    this.columns[i].visible = false;
+                }
+            }
+        }
+    }
+
+    return (
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+            <Header category="Page" title="Customers" />
+            {isLoading ? (
+                <div className="flex justify-center">
+                    <TailSpin
+                        height="50"
+                        width="50"
+                        color="blue"
+                        ariaLabel="tail-spin-loading"
+                        radius="1"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            ) : (
+                <GridComponent
+                    dataSource={data}
+                    enableHover={false}
+                    allowPaging
+                    pageSettings={{ pageCount: 1 }}
+                    selectionSettings={selectionsettings}
+                    toolbar={toolbarOptions}
+                    editSettings={editing}
+                    allowSorting
+                    actionBegin={actionBegin}
+                    actionComplete={actionComplete}
+                >
+                    <ColumnsDirective>
+                        {new CustomerGrid().grid().map((item, index) => (
+                            <ColumnDirective key={index} {...item} />
+                        ))}
+                    </ColumnsDirective>
+                    <Inject
+                        services={[
+                            Page,
+                            Selection,
+                            Toolbar,
+                            Edit,
+                            Sort,
+                            Filter,
+                        ]}
+                    />
+                </GridComponent>
+            )}
+        </div>
+    );
+};
+
+export default Customers;
