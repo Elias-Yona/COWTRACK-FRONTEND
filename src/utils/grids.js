@@ -1,13 +1,12 @@
 import { MaskedTextBoxComponent } from "@syncfusion/ej2-react-inputs";
 
-
 export class CustomerGrid {
-    gridImage (props) {     
+    gridImage(props) {
         return (
             <div className="image flex gap-4">
                 <img
                     className="rounded-full w-10 h-10"
-                    src= {props.customer_image}
+                    src={props.customer_image}
                     alt="employee"
                 />
                 <div>
@@ -24,48 +23,27 @@ export class CustomerGrid {
 
     phoneNumberTemplate(args) {
         return (
-            <MaskedTextBoxComponent 
+            <MaskedTextBoxComponent
                 value={args.phone_number}
-                mask="07XX XXX XXX"
+                mask="0000-000-000"
                 id="phone_number"
             />
-        )
+        );
     }
 
     grid() {
+        // prettier-ignore
         return  [
-            { 
-                type: 'checkbox', 
-                width: '50' 
-            },
-            {
-                headerText: "Name",
-                width: "160",
-                template: this.gridImage,
-                textAlign: "Center",
-            },
-            {
-                field: "phone_number",
-                headerText: "Phone Number",
-                width: "150",
-                textAlign: "Left",
-                editTemplate: this.phoneNumberTemplate,
-            },
-            {
-                field: "date_joined",
-                headerText: "Joining Date",
-                width: "150",
-                textAlign: "Left",
-                format: "yMd",
-                allowEditing: false
-            },
-            {
-                field: "customer_id",
-                headerText: "Customer ID",
-                width: "120",
-                textAlign: "Left",
-                isPrimaryKey: true,
-            },
-        ];        
+            { type: 'checkbox', width: '50', },
+            { headerText: "Name", width: "175", template: this.gridImage, textAlign: "Center", },
+            { field: "phone_number", headerText: "Phone Number", width: "150", textAlign: "Left", editTemplate: this.phoneNumberTemplate,},
+            { field: "date_joined", headerText: "Joining Date", width: "150", textAlign: "Left", format: "yMd", allowEditing: false },
+            { field: "address", headerText: "Address", width: "120", textAlign: "Left", visible: false },
+            { field: "contact_person", headerText: "Contact Person", width: "120", textAlign: "Left", editTemplate: this.phoneNumberTemplate, },
+            { field: "email", headerText: "Email", width: "120", textAlign: "Left", visible: false },
+            { field: "first_name", headerText: "First Name", width: "120", textAlign: "Left", visible: false },
+            { field: "last_name", headerText: "Last Name", width: "120", textAlign: "Left", visible: false },
+            { field: "customer_id", headerText: "Customer ID", width: "120", textAlign: "Left", isPrimaryKey: true, },  
+        ];
     }
 }
