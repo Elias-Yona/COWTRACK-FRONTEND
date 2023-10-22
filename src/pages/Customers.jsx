@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inject, Edit, Toolbar, Sort, Filter } from '@syncfusion/ej2-react-grids';
 import { TailSpin } from  'react-loader-spinner'
 
-import { customersData, customersGrid } from '../data/dummy';
+import { customersGrid } from '../utils/grids';
 import { Header } from '../components';
 import { fetchCustomersData } from '../utils/data'
 
@@ -12,22 +12,36 @@ const Customers = () => {
   const toolbarOptions = ['Delete'];
   const editing = { allowDeleting: true, allowEditing: true };
   const [data, setData] = useState([]);
+  const [pageData, setPageData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const customersData = await fetchCustomersData();
-        setData(customersData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setIsLoading(false);
-      }
+      const customersData = await fetchCustomersData(); // Await the fetch operation
+      
+      const pData = customersData.map((item) => ({
+        CustomerID: item.customer_id,
+        CustomerName: `${item.first_name} ${item.last_name}`,
+        CustomerPhoneNumber: item.phone_number,
+        CustomerEmail: item.email,
+        CustomerDateJoined: new Date(item.date_joined).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }),
+        CustomerImage: `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`
+      }));
+  
+      setData(customersData);
+      setPageData(pData);
+      setIsLoading(false);
     };
-
-    fetchData();
-  }, []);
+  
+    if (pageData.length === 0) {
+      setIsLoading(true);
+      fetchData();
+    } else {
+      setIsLoading(false);
+    }
+  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pageData]);
   
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -47,7 +61,7 @@ const Customers = () => {
         </div>
       ) : (
         <GridComponent
-          dataSource={data}
+          dataSource={pageData}
           enableHover={false}
           allowPaging
           pageSettings={{ pageCount: 1 }}
