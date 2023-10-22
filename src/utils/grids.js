@@ -1,5 +1,6 @@
 import { MaskedTextBoxComponent } from "@syncfusion/ej2-react-inputs";
 
+
 export class CustomerGrid {
     gridImage(props) {
         return (
@@ -23,11 +24,27 @@ export class CustomerGrid {
 
     phoneNumberTemplate(args) {
         return (
-            <MaskedTextBoxComponent
-                value={args.phone_number}
-                mask="0000-000-000"
-                id="phone_number"
-            />
+            <div className="group">
+                <label className="label group-hover:text-[#e3165b]">Phone Number</label>
+                <MaskedTextBoxComponent
+                    value={args.phone_number}
+                    mask="0000-000-000"
+                    id="phone_number"
+                />
+            </div>
+        );
+    }
+
+    contactPersonTemplate(args) {
+        return (
+            <div className="group">
+                <label className="label group-hover:text-[#e3165b]">Contact Person</label>
+                <MaskedTextBoxComponent
+                    value={args.contact_person}
+                    mask="0000-000-000"
+                    id="contact_person"
+                />
+            </div>
         );
     }
 
@@ -39,7 +56,7 @@ export class CustomerGrid {
             { field: "phone_number", headerText: "Phone Number", width: "150", textAlign: "Left", editTemplate: this.phoneNumberTemplate,},
             { field: "date_joined", headerText: "Joining Date", width: "150", textAlign: "Left", format: "yMd", allowEditing: false },
             { field: "address", headerText: "Address", width: "120", textAlign: "Left", visible: false },
-            { field: "contact_person", headerText: "Contact Person", width: "120", textAlign: "Left", editTemplate: this.phoneNumberTemplate, },
+            { field: "contact_person", headerText: "Contact Person", width: "120", textAlign: "Left", editTemplate: this.contactPersonTemplate, },
             { field: "email", headerText: "Email", width: "120", textAlign: "Left", visible: false },
             { field: "first_name", headerText: "First Name", width: "120", textAlign: "Left", visible: false },
             { field: "last_name", headerText: "Last Name", width: "120", textAlign: "Left", visible: false },

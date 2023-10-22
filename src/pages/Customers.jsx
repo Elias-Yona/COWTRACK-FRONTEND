@@ -67,6 +67,9 @@ const Customers = () => {
                 else if (this.columns[i].field === "email") {
                     this.columns[i].visible = true;
                 }
+                else if (this.columns[i].field === "customer_id") {
+                    this.columns[i].visible = false;
+                }
             }
         }
     }
