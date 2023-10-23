@@ -15,7 +15,7 @@ import { TailSpin } from "react-loader-spinner";
 
 import { CustomerGrid } from "../utils/grids";
 import { Header } from "../components";
-import { fetchCustomersData } from "../utils/data";
+import { CustomerCRUD } from "../utils/data";
 
 
 const Customers = () => {
@@ -24,18 +24,18 @@ const Customers = () => {
     const editing = { allowDeleting: true, allowEditing: true, allowAdding: true, mode: "Dialog" };
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
-    
+    const customerCRUD = new CustomerCRUD()
 
     useEffect(() => {
         const fetchData = async () => {
-            const customersData = await fetchCustomersData();
-            const pageData = customersData.map((item) => ({
+            const customersData = await customerCRUD.fetchCustomersData();
+            const pageData = customersData.data.map((item) => ({
               ...item,
               customer_image: `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`,
             }));
+            const customizedPageData = {result: pageData, count: customersData.count}
 
-            setData(pageData);
+            setData(customizedPageData);
             setIsLoading(false);
         };
 
@@ -46,13 +46,10 @@ const Customers = () => {
             setIsLoading(false);
         }
 
-        console.log(data);
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data]);
 
     function actionBegin(args) {
-        console.log(this.columns)
         if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
             for (var i = 0; i < this.columns.length; i++) {
                 if (this.columns[i].headerText === "Name") {
@@ -75,7 +72,6 @@ const Customers = () => {
     }
 
     function actionComplete(args) {
-        console.log(this.columns)
         if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
             for (var i = 0; i < this.columns.length; i++) {
                 if (this.columns[i].headerText == "Name") {
@@ -91,6 +87,16 @@ const Customers = () => {
                     this.columns[i].visible = false;
                 }
             }
+        }
+    }
+
+    const dataSourceChanged = (state)  => {
+        if (state.action === "add") {
+            response = customerCRUD.AddCustomersData(state.data)
+        } elseif (state.action === "delete") {
+
+        } elseif (state.action === "edit") {
+
         }
     }
 
@@ -122,6 +128,7 @@ const Customers = () => {
                     allowSorting
                     actionBegin={actionBegin}
                     actionComplete={actionComplete}
+                    dataSourceChanged={dataSourceChanged}
                 >
                     <ColumnsDirective>
                         {new CustomerGrid().grid().map((item, index) => (
