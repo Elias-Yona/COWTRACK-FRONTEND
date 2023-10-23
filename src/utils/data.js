@@ -1,35 +1,34 @@
-import axios from 'axios'
-import { flattenData } from "./helpers.js"
+import axios from "axios";
+import { flattenData } from "./helpers.js";
 
-
-export  class CustomerCRUD {
+export class CustomerCRUD {
     constructor() {
-        this.baseUrl = 'http://localhost:8000/customers'
+        this.baseUrl = "http://localhost:8000/customers/";
     }
 
-    // GET 
+    // GET
     async fetchCustomersData() {
         try {
-            const response = await axios.get(this.baseUrl);  
-            const data = response.data
-    
-            const results = data.results
-            const finalData = []
-    
+            const response = await axios.get(this.baseUrl);
+            const data = response.data;
+
+            const results = data.results;
+            const finalData = [];
+
             for (let singleData of results) {
-                const flattenedData = flattenData(singleData)
+                const flattenedData = flattenData(singleData);
                 const dataSchema = {
                     count: data.count,
                     next: data.next,
                     previous: data.previous,
                     ...flattenedData,
-                }
-                finalData.push(dataSchema)
+                };
+                finalData.push(dataSchema);
             }
-    
-            return {count: finalData.length, data: finalData}
+
+            return { count: finalData.length, data: finalData };
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
         }
     }
@@ -41,17 +40,27 @@ export  class CustomerCRUD {
                 address: data.address,
                 contact_person: data.contact_person,
                 phone_number: data.phone_number,
+                kra_pin: data.kra_pin,
                 user: {
                     first_name: data.first_name,
                     last_name: data.last_name,
-                    email: data.email
-                }
+                    email: data.email,
+                    username: `${data.first_name} ${data.last_name}`
+                },
             };
 
-            const response = await axios.post(this.baseUrl, postData);  
-            return response.data
+            const response = await axios.post(
+                this.baseUrl,
+                JSON.stringify(postData),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return response.data;
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
         }
     }
@@ -63,17 +72,27 @@ export  class CustomerCRUD {
                 address: data.address,
                 contact_person: data.contact_person,
                 phone_number: data.phone_number,
+                kra_pin: data.kra_pin,
                 user: {
                     first_name: data.first_name,
                     last_name: data.last_name,
-                    email: data.email
-                }
+                    email: data.email,
+                    username: `${data.first_name} ${data.last_name}`
+                },
             };
 
-            const response = await axios.put(`${this.baseUrl}/${data.customer_id}`, postData);  
-            return response.data
+            const response = await axios.put(
+                `${this.baseUrl}${data.customer_id}/`,
+                JSON.stringify(postData),
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            return response.data;
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
         }
     }
@@ -81,10 +100,10 @@ export  class CustomerCRUD {
     // DELETE
     async deleteCustomerData(id) {
         try {
-            const response = await axios.delete(`http://localhost:8000/users/${data.customer_id}`, postData);  
-            return response.data
+            const response = await axios.delete(`${this.baseUrl}${id}/`);
+            return response.data;
         } catch (error) {
-            console.error('Error fetching data:', error); 
+            console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
         }
     }
