@@ -35,7 +35,7 @@ export  class CustomerCRUD {
     }
 
     // POST
-    async AddCustomersData(data) {
+    async addCustomerData(data) {
         try {
             const postData = {
                 address: data.address,
@@ -49,6 +49,28 @@ export  class CustomerCRUD {
             };
 
             const response = await axios.post(this.baseUrl, postData);  
+            return response.data
+        } catch (error) {
+            console.error('Error fetching data:', error); 
+            throw error; // Re-throw the error to be handled by the caller if needed
+        }
+    }
+
+    // PUT
+    async editCustomerData(data) {
+        try {
+            const postData = {
+                address: data.address,
+                contact_person: data.contact_person,
+                phone_number: data.phone_number,
+                user: {
+                    first_name: data.first_name,
+                    last_name: data.last_name,
+                    email: data.email
+                }
+            };
+
+            const response = await axios.put(`${this.baseUrl}/${data.customer_id}`, postData);  
             return response.data
         } catch (error) {
             console.error('Error fetching data:', error); 
