@@ -58,9 +58,11 @@ export class CustomerGrid {
             { field: "address", headerText: "Address", width: "120", textAlign: "Left", visible: false },
             { field: "contact_person", headerText: "Contact Person", width: "120", textAlign: "Left", editTemplate: this.contactPersonTemplate, },
             { field: "email", headerText: "Email", width: "120", textAlign: "Left", visible: false },
+            { field: "username", headerText: "Username", width: "120", textAlign: "Left", visible: false, allowEditing: false },
+            { field: "kra_pin", headerText: "kra_pin", width: "120", textAlign: "Left", },
             { field: "first_name", headerText: "First Name", width: "120", textAlign: "Left", visible: false },
             { field: "last_name", headerText: "Last Name", width: "120", textAlign: "Left", visible: false },
-            { field: "customer_id", headerText: "Customer ID", width: "120", textAlign: "Left", isPrimaryKey: true, },  
+            { field: "customer_id", headerText: "Customer ID", width: "120", textAlign: "Left", isPrimaryKey: true, },    
         ];
     }
 }
