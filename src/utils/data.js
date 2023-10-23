@@ -77,4 +77,15 @@ export  class CustomerCRUD {
             throw error; // Re-throw the error to be handled by the caller if needed
         }
     }
+
+    // DELETE
+    async deleteCustomerData(id) {
+        try {
+            const response = await axios.delete(`http://localhost:8000/users/${data.customer_id}`, postData);  
+            return response.data
+        } catch (error) {
+            console.error('Error fetching data:', error); 
+            throw error; // Re-throw the error to be handled by the caller if needed
+        }
+    }
 }

@@ -92,11 +92,11 @@ const Customers = () => {
 
     const dataSourceChanged = (state)  => {
         if (state.action === "add") {
-            response = customerCRUD.addCustomerData(state.data)
+            const response = customerCRUD.addCustomerData(state.data)
         } elseif (state.action === "delete") {
-
+            const response = customerCRUD.deleteCustomerData(state.data[0].customer_id)
         } elseif (state.action === "edit") {
-            response = customerCRUD.editCustomerData(state.data)
+            const response = customerCRUD.editCustomerData(state.data)
         }
     }
 
