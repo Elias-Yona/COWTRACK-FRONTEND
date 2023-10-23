@@ -67,6 +67,12 @@ const Customers = () => {
                 else if (this.columns[i].field === "customer_id") {
                     this.columns[i].visible = false;
                 }
+                else if (this.columns[i].field == "address") {
+                    this.columns[i].visible = true;
+                }
+                else if (this.columns[i].field == "username") {
+                    this.columns[i].visible = true;
+                }
             }
         }
     }
@@ -84,6 +90,12 @@ const Customers = () => {
                     this.columns[i].visible = false;
                 }
                 else if (this.columns[i].field == "email") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "address") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "username") {
                     this.columns[i].visible = false;
                 }
             }
