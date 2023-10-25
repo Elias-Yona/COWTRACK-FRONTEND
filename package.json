@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@syncfusion/ej2": "^23.1.40",
+    "@syncfusion/ej2-base": "^23.1.41",
     "@syncfusion/ej2-data": "^23.1.36",
     "@syncfusion/ej2-react-charts": "^23.1.40",
     "@syncfusion/ej2-react-dropdowns": "^23.1.40",
