@@ -28,25 +28,16 @@ const Customers = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const customersData = await customerCRUD.fetchCustomersData();
-            const pageData = customersData.data.map((item) => ({
-              ...item,
-              customer_image: `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}`,
-            }));
-            const customizedPageData = {result: pageData, count: customersData.count}
-
-            setData(customizedPageData);
-            setIsLoading(false);
+            // Make the API request only if data is not already loaded
+            if (data.length === 0) {
+                setIsLoading(true);
+                const customersData = await customerCRUD.fetchCustomersData();
+                setData(customersData);
+                setIsLoading(false);
+            }
         };
-
-        if (data.length === 0) {
-            setIsLoading(true);
-            fetchData();
-        } else {
-            setIsLoading(false);
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    
+        fetchData();
     }, [data]);
 
     function actionBegin(args) {
@@ -104,11 +95,11 @@ const Customers = () => {
 
     const dataSourceChanged = (state)  => {
         if (state.action === "add") {
-            const response = customerCRUD.addCustomerData(state.data)
+            return customerCRUD.addCustomerData(state.data)
         } else if (state.action === "delete") {
-            const response = customerCRUD.deleteCustomerData(state.data[0].customer_id)
+            customerCRUD.deleteCustomerData(state.data[0].customer_id)
         } else if (state.action === "edit") {
-            const response = customerCRUD.editCustomerData(state.data)
+            customerCRUD.editCustomerData(state.data)
         }
     }
 

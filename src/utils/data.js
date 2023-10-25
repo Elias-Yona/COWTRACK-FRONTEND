@@ -1,4 +1,7 @@
 import axios from "axios";
+import { DataManager, Query } from '@syncfusion/ej2-data';
+import { CustomerAdaptor } from "./adaptors"
+
 import { flattenData } from "./helpers.js";
 
 export class CustomerCRUD {
@@ -6,31 +9,17 @@ export class CustomerCRUD {
         this.baseUrl = "http://localhost:8000/customers/";
     }
 
-    // GET
     async fetchCustomersData() {
-        try {
-            const response = await axios.get(this.baseUrl);
-            const data = response.data;
-
-            const results = data.results;
-            const finalData = [];
-
-            for (let singleData of results) {
-                const flattenedData = flattenData(singleData);
-                const dataSchema = {
-                    count: data.count,
-                    next: data.next,
-                    previous: data.previous,
-                    ...flattenedData,
-                };
-                finalData.push(dataSchema);
-            }
-
-            return { count: finalData.length, data: finalData };
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            throw error; // Re-throw the error to be handled by the caller if needed
-        }
+        return new DataManager({ 
+            adaptor: new CustomerAdaptor(),
+            url: this.baseUrl,
+         }).executeQuery(new Query()).then((e) => {
+            const totalCount = e.actual.count; 
+            const itemsPerPage = e.actual.results.length;
+            e.count = Math.ceil(totalCount / itemsPerPage)
+            e.result = e.result.results
+            return e
+         });
     }
 
     // POST
@@ -58,7 +47,8 @@ export class CustomerCRUD {
                     },
                 }
             );
-            return response.data;
+            
+            return flattenData(response.data);
         } catch (error) {
             console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
@@ -90,7 +80,22 @@ export class CustomerCRUD {
                     },
                 }
             );
-            return response.data;
+            
+            const results = response.data;
+            const finalData = [];
+
+            for (let singleData of results) {
+                const flattenedData = flattenData(singleData);
+                const dataSchema = {
+                    count: data.count,
+                    next: data.next,
+                    previous: data.previous,
+                    ...flattenedData,
+                };
+                finalData.push(dataSchema);
+            }
+
+            return { count: finalData.length, data: finalData };
         } catch (error) {
             console.error("Error fetching data:", error);
             throw error; // Re-throw the error to be handled by the caller if needed
