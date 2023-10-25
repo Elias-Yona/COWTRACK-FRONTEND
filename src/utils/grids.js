@@ -52,7 +52,7 @@ export class CustomerGrid {
         // prettier-ignore
         return  [
             { type: 'checkbox', width: '50', },
-            { headerText: "Name", width: "200", template: this.gridImage, textAlign: "Center", },
+            { headerText: "Name", width: "210", template: this.gridImage, textAlign: "Center", },
             { field: "phone_number", headerText: "Phone Number", width: "130", textAlign: "Center", editTemplate: this.phoneNumberTemplate,},
             { field: "date_joined", headerText: "Joining Date", width: "130", textAlign: "Center", format: "yMd", allowEditing: false },
             { field: "address", headerText: "Address", width: "120", textAlign: "Center", visible: false },
