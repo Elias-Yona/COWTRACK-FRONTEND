@@ -3,7 +3,20 @@ import { setValue } from '@syncfusion/ej2-base';
 import { flattenData } from "./helpers.js";
 
 export class CustomerAdaptor extends WebApiAdaptor {
-    processResponse(data, type, request, xhr, query, dm) {
+    // POST
+    processPostResponse(data, type, request, xhr, query, dm) {
+        data = super.processResponse(data, type, request, xhr, query, dm);
+        setValue(
+            "customer_image", 
+            data.user.first_name ? `https://ui-avatars.com/api/?name=${data.user.first_name}+${data.user.last_name}` : "https://ui-avatars.com/api/?name=No Data",            
+            data
+        );
+        console.log("post response ", data)
+        return flattenData(data)
+    }
+
+    // GET
+    processGetResponse(data, type, request, xhr, query, dm) {
         data = super.processResponse(data, type, request, xhr, query, dm);
         const keys = Object.keys(flattenData(data.results[0]));
         const flattenedData = data.results.map((item) => flattenData(item));
@@ -23,5 +36,13 @@ export class CustomerAdaptor extends WebApiAdaptor {
         });
     
         return data;
-      }
+    }
+
+    processResponse(data, type, request, xhr, query, dm) {
+        if (xhr.method === 'GET') {
+            return this.processGetResponse(data, type, request, xhr, query, dm)
+        }else if (xhr.method === 'POST') {
+            return this.processPostResponse(data, type, request, xhr, query, dm)
+        }
+    }
 }

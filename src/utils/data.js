@@ -24,35 +24,26 @@ export class CustomerCRUD {
 
     // POST
     async addCustomerData(data) {
-        try {
-            const postData = {
-                address: data.address,
-                contact_person: data.contact_person,
-                phone_number: data.phone_number,
-                kra_pin: data.kra_pin,
-                user: {
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    email: data.email,
-                    username: `${data.first_name} ${data.last_name}`
-                },
-            };
-
-            const response = await axios.post(
-                this.baseUrl,
-                JSON.stringify(postData),
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-            
-            return flattenData(response.data);
-        } catch (error) {
-            console.error("Error fetching data:", error);
-            throw error; // Re-throw the error to be handled by the caller if needed
-        }
+        const postData = {
+            address: data.address,
+            contact_person: data.contact_person,
+            phone_number: data.phone_number,
+            kra_pin: data.kra_pin,
+            user: {
+                first_name: data.first_name,
+                last_name: data.last_name,
+                email: data.email,
+                username: `${data.first_name} ${data.last_name}`
+            },
+        };
+        const dataManager = new DataManager({
+            adaptor: new CustomerAdaptor(),
+            url: this.baseUrl
+        });
+        dataManager.insert(postData, null, null, null);
+        return dataManager.executeQuery(new Query()).then((e) => {
+            return e;
+        });
     }
 
     // PUT
