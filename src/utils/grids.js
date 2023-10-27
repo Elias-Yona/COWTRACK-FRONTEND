@@ -12,11 +12,11 @@ export class CustomerGrid {
                 />
                 <div>
                     <p>
-                        <span>{props.first_name}</span>
+                        <span>{props.user.first_name}</span>
                         <span>&nbsp;</span>
-                        <span>{props.last_name}</span>
+                        <span>{props.user.last_name}</span>
                     </p>
-                    <p>{props.email}</p>
+                    <p>{props.user.email}</p>
                 </div>
             </div>
         );
@@ -52,17 +52,17 @@ export class CustomerGrid {
         // prettier-ignore
         return  [
             { type: 'checkbox', width: '50', },
-            { headerText: "Name", width: "210", template: this.gridImage, textAlign: "Center", },
-            { field: "phone_number", headerText: "Phone Number", width: "130", textAlign: "Center", editTemplate: this.phoneNumberTemplate,},
-            { field: "date_joined", headerText: "Joining Date", width: "130", textAlign: "Center", format: "yMd", allowEditing: false },
-            { field: "address", headerText: "Address", width: "120", textAlign: "Center", visible: false },
-            { field: "contact_person", headerText: "Contact Person", width: "130", textAlign: "Center", editTemplate: this.contactPersonTemplate, },
-            { field: "email", headerText: "Email", width: "120", textAlign: "Center", visible: false },
-            { field: "username", headerText: "Username", width: "120", textAlign: "Center", visible: false, allowEditing: false },
-            { field: "kra_pin", headerText: "kra_pin", width: "120", textAlign: "Center", },
-            { field: "first_name", headerText: "First Name", width: "120", textAlign: "Center", visible: false },
-            { field: "last_name", headerText: "Last Name", width: "120", textAlign: "Center", visible: false },
-            { field: "customer_id", headerText: "Customer ID", width: "120", textAlign: "Center", isPrimaryKey: true, visible: false },    
+            { headerText: "Name", width: "210", template: this.gridImage, textAlign: "Center", allowFiltering: false, allowSorting: false},
+            { field: "phone_number", headerText: "Phone Number", width: "130", textAlign: "Center", editTemplate: this.phoneNumberTemplate, allowFiltering: false, allowSorting: false},
+            { field: "user.date_joined", headerText: "Joining Date", width: "130", textAlign: "Center", type: "date", format: "yMd", allowEditing: false, allowSorting: false},
+            { field: "address", headerText: "Address", width: "120", textAlign: "Center", visible: false, allowFiltering: false, allowSorting: false},
+            { field: "contact_person", headerText: "Contact Person", width: "130", textAlign: "Center", editTemplate: this.contactPersonTemplate, allowFiltering: false, allowSorting: false},
+            { field: "user.email", headerText: "Email", width: "120", textAlign: "Center", visible: false, allowFiltering: false, allowSorting: false},
+            { field: "user.username", headerText: "Username", width: "120", textAlign: "Center", visible: false, allowEditing: false, allowFiltering: false, allowSorting: false},
+            { field: "kra_pin", headerText: "kra_pin", width: "120", textAlign: "Center", allowFiltering: false, allowSorting: false},
+            { field: "user.first_name", headerText: "First Name", width: "120", textAlign: "Center", visible: false, allowFiltering: false},
+            { field: "user.last_name", headerText: "Last Name", width: "120", textAlign: "Center", visible: false, allowFiltering: false},
+            { field: "customer_id", headerText: "Customer ID", width: "120", textAlign: "Center", isPrimaryKey: true, visible: false, allowFiltering: false, allowSorting: false},    
         ];
     }
 }
