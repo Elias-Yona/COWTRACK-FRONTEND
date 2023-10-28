@@ -107,3 +107,20 @@ export class SalesPersonGrid extends SharedSettings {
         ];
     }
 }
+
+export class SupervisorGrid extends SharedSettings {
+    grid() {
+        // prettier-ignore
+        return  [
+            { type: 'checkbox', width: '50', },
+            { headerText: "Name", width: "150", template: this.gridImage, textAlign: "Center", allowFiltering: false, allowSorting: false, allowEditing: false},
+            { field: "phone_number", headerText: "Phone Number", width: "130", textAlign: "Right", editTemplate: this.phoneNumberTemplate, allowFiltering: false, allowSorting: false},
+            { field: "user.date_joined", headerText: "Joining Date", width: "130", textAlign: "Right", type: "date", format: "yMd", allowEditing: false, allowSorting: true},
+            { field: "user.email", headerText: "Email", width: "120", textAlign: "Right", visible: false, allowFiltering: false, allowSorting: false},
+            { field: "user.username", headerText: "Username", width: "120", textAlign: "Right", allowEditing: true, allowFiltering: false, allowSorting: false},
+            { field: "user.first_name", headerText: "First Name", width: "120", textAlign: "Right", visible: false, allowFiltering: false},
+            { field: "user.last_name", headerText: "Last Name", width: "120", textAlign: "Right", visible: false, allowFiltering: false},
+            { field: "supervisor_id", headerText: "Supervisor ID", width: "120", textAlign: "Right", isPrimaryKey: true, visible: true, allowFiltering: false, allowSorting: false},    
+        ];
+    }
+}
