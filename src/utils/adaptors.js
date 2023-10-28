@@ -15,3 +15,7 @@ export class SalespersonAdaptor extends WebApiAdaptor {
 export class SupervisorAdaptor extends WebApiAdaptor {
    
 }
+
+export class SupplierAdaptor extends WebApiAdaptor {
+   
+}
