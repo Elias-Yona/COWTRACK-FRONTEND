@@ -7,3 +7,7 @@ export class CustomerAdaptor extends WebApiAdaptor {
 export class ManagerAdaptor extends WebApiAdaptor {
    
 }
+
+export class SalespersonAdaptor extends WebApiAdaptor {
+   
+}

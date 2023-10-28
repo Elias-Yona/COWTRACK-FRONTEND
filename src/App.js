@@ -85,14 +85,14 @@ const App = () => {
                                 {/* dashboard  */}
                                 <Route path="/" element={<SalesMetrics />} />
                                 <Route
-                                    path="/sales-metrics"
+                                    path="/salesmetrics"
                                     element={<SalesMetrics />}
                                 />
 
                                 {/* pages  */}
                                 <Route path="/customers" element={<Customers />} />
                                 <Route
-                                    path="/salespersons"
+                                    path="/sales persons"
                                     element={<Salespersons />}
                                 />
                                 <Route
