@@ -9,7 +9,6 @@ import { CustomerCrud } from "../utils/data";
 const Customers = () => {
     const [data, setData] = useState([])
     const [isEdit, setIsEdit] = useState(false)
-    const [isLoading, setIsLoading] = useState(true);
     const customerData = new CustomerCrud()
     const toolbarOptions = ["Add", "Edit", "Delete", "Search"];
     const selectionsettings = { persistSelection: true };
@@ -22,7 +21,6 @@ const Customers = () => {
     const fetchData = async () => {
         const result = await customerData.fetchCustomerData();
         setData(result.result);
-        setIsLoading(false);
     }
 
     // Handling different actions on grid
@@ -38,13 +36,13 @@ const Customers = () => {
                 break;
             case 'beginEdit':
                 // Handle the addition of a new record
-                console.log("Edit action ", args.data)
+                console.log("Edit action ", args.rowData)
                 setIsEdit(true)
                 console.log("Edit state ", isEdit)
                 break;
             case 'save':
                 // Handle the saving of an edited record or addition of a new record
-                if (isEdit) {
+                if (args.action == "edit") {
                     console.log("Edit Action ", args.data)
                     const updatedRecord = await customerData.editCustomerData(args.data);
                     const index = data.findIndex(record => record.customer_id === updatedRecord.result[0].customer_id);
@@ -66,7 +64,7 @@ const Customers = () => {
             case 'delete':
                 // Handle the deletion of a record
                 console.log("Delete action ", args.data)
-                const customerId = args.data[0].customer_id
+                const customerId = await args.promise[0].customer_id
                 customerData.deleteCustomerData(customerId);
                 break;
             case 'searching':
@@ -120,24 +118,28 @@ const Customers = () => {
 
         // fields
         if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
-            for (var i = 0; i < this.columns.length; i++) {
-                if (this.columns[i].headerText == "Name") {
-                    this.columns[i].visible = true;
+            const cols = this.columns;
+            for (const col of cols) {
+                if (col.headerText === "Name") {
+                    col.visible = true;
                 }
-                else if (this.columns[i].field == "user.first_name") {
-                    this.columns[i].visible = false;
+                else if (col.field === "user.date_joined" ) {
+                    col.visible = true;
                 }
-                else if (this.columns[i].field == "user.last_name") {
-                    this.columns[i].visible = false;
+                else if (col.field === "user.first_name" ) {
+                    col.visible = false;
                 }
-                else if (this.columns[i].field == "user.email") {
-                    this.columns[i].visible = false;
+                else if (col.field === "user.last_name" ) {
+                    col.visible = false;
                 }
-                // else if (this.columns[i].field == "address") {
-                //     this.columns[i].visible = false;
-                // }
-                else if (this.columns[i].field == "user.username") {
-                    this.columns[i].visible = false;
+                else if (col.field === "user.email" ) {
+                    col.visible = false;
+                }
+                else if (col.field === "user.username" ) {
+                    col.visible = false;
+                }
+                else if (col.field === "address" ) {
+                    col.visible = false;
                 }
             }
         }
@@ -145,27 +147,29 @@ const Customers = () => {
 
     function actionBegin(args) {
         if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
-            for (var i = 0; i < this.columns.length; i++) {
-                if (this.columns[i].headerText === "Name") {
-                    this.columns[i].visible = false;
+            const cols = this.columns;
+            console.log("Edit Columns ", cols)
+            for (const col of cols) {
+                if (col.headerText === "Name") {
+                    col.visible = false;
                 }
-                else if (this.columns[i].field === "user.first_name") {
-                    this.columns[i].visible = true;
+                else if (col.field === "user.first_name" ) {
+                    col.visible = true;
                 }
-                else if (this.columns[i].field === "user.last_name") {
-                    this.columns[i].visible = true;
+                else if (col.field === "user.date_joined" ) {
+                    col.visible = false;
                 }
-                else if (this.columns[i].field === "user.email") {
-                    this.columns[i].visible = true;
+                else if (col.field === "user.last_name" ) {
+                    col.visible = true;
                 }
-                else if (this.columns[i].field === "customer_id") {
-                    this.columns[i].visible = true;
+                else if (col.field === "user.email" ) {
+                    col.visible = true;
                 }
-                else if (this.columns[i].field == "address") {
-                    this.columns[i].visible = true;
+                else if (col.field === "user.username" ) {
+                    col.visible = false;
                 }
-                else if (this.columns[i].field == "user.username") {
-                    this.columns[i].visible = true;
+                else if (col.field === "address" ) {
+                    col.visible = true;
                 }
             }
         }
@@ -173,23 +177,9 @@ const Customers = () => {
 
 
     return (
-        <div lassName="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+        // <button onClick={fetchData}>Refresh Grid</button>
+        <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
             <Header category="Page" title="Customers" />
-            {isLoading ? (
-                <div className="flex justify-center">
-                    <TailSpin
-                        height="50"
-                        width="50"
-                        color="blue"
-                        ariaLabel="tail-spin-loading"
-                        radius="1"
-                        wrapperStyle={{}}
-                        wrapperClass=""
-                        visible={true}
-                    />
-                </div>
-            ) : (
-            // <button onClick={fetchData}>Refresh Grid</button>
             <GridComponent 
                 dataSource={data}
                 toolbar={toolbarOptions}
@@ -218,7 +208,6 @@ const Customers = () => {
                     ]}
                 />
             </GridComponent>
-            )}
         </div>
     )
 }
