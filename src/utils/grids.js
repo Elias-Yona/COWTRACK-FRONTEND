@@ -3,6 +3,7 @@ import { MaskedTextBoxComponent } from "@syncfusion/ej2-react-inputs";
 
 export class CustomerGrid {
     gridImage(props) {
+        console.log("Grid image Props ", props)
         return (
             <div className="image flex gap-4">
                 <img
@@ -23,6 +24,7 @@ export class CustomerGrid {
     }
 
     phoneNumberTemplate(args) {
+        console.log("Phone number template ", args)
         return (
             <div className="group">
                 <label className="label group-hover:text-[#e3165b]">Phone Number</label>
@@ -36,6 +38,7 @@ export class CustomerGrid {
     }
 
     contactPersonTemplate(args) {
+        console.log("Contact person template ", args)
         return (
             <div className="group">
                 <label className="label group-hover:text-[#e3165b]">Contact Person</label>
@@ -52,10 +55,10 @@ export class CustomerGrid {
         // prettier-ignore
         return  [
             { type: 'checkbox', width: '50', },
-            { headerText: "Name", width: "210", template: this.gridImage, textAlign: "Center", allowFiltering: false, allowSorting: false},
+            { headerText: "Name", width: "150", template: this.gridImage, textAlign: "Center", allowFiltering: false, allowSorting: false, allowEditing: false},
             { field: "phone_number", headerText: "Phone Number", width: "130", textAlign: "Center", editTemplate: this.phoneNumberTemplate, allowFiltering: false, allowSorting: false},
-            { field: "user.date_joined", headerText: "Joining Date", width: "130", textAlign: "Center", type: "date", format: "yMd", allowEditing: false, allowSorting: false},
-            { field: "address", headerText: "Address", width: "120", textAlign: "Center", visible: false, allowFiltering: false, allowSorting: false},
+            { field: "user.date_joined", headerText: "Joining Date", width: "130", textAlign: "Center", type: "date", format: "yMd", allowEditing: false, allowSorting: true},
+            { field: "address", headerText: "Address", width: "120", textAlign: "Center", allowFiltering: false, allowSorting: false},
             { field: "contact_person", headerText: "Contact Person", width: "130", textAlign: "Center", editTemplate: this.contactPersonTemplate, allowFiltering: false, allowSorting: false},
             { field: "user.email", headerText: "Email", width: "120", textAlign: "Center", visible: false, allowFiltering: false, allowSorting: false},
             { field: "user.username", headerText: "Username", width: "120", textAlign: "Center", visible: false, allowEditing: false, allowFiltering: false, allowSorting: false},

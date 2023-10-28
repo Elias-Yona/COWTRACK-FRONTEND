@@ -16,6 +16,9 @@ export class CustomerCrud {
         }).executeQuery(new Query())
         dataManager.result = dataManager.actual.results
         dataManager.count = dataManager.actual.count
+
+        console.log("Fetch customers data [GET] ", dataManager)
+
         return dataManager
     }
 
@@ -34,6 +37,8 @@ export class CustomerCrud {
             },
         }
 
+        console.log("Post Data ", postData)
+
         const dataManager = new DataManager({
             adaptor: new CustomerAdaptor(),
             url: this.baseUrl
@@ -44,6 +49,9 @@ export class CustomerCrud {
         const response = await dataManager.executeQuery(query)
         response.count = response.actual.count
         response.result = response.actual.results
+
+        console.log("Add customer data [POST] ", response)
+
         return response
     }
 
@@ -61,21 +69,31 @@ export class CustomerCrud {
                 username: `${data.user.first_name} ${data.user.last_name}`
             },
         }
+        console.log("Put Data ", putData)
 
         const dataManager = new DataManager({
             adaptor: new CustomerAdaptor(),
             url: `${this.baseUrl}${data.customer_id}/`
         })
         
+        console.log("dataManager ", dataManager)
+
         const updatedData = await dataManager.update("customer_id", putData);
+        console.log("Updated Data ", updatedData)
         const query = new Query()
+        
         const response = await dataManager.executeQuery(query)
+
         response.result = Array(response.actual)
+
+        console.log("Update customer data [PUT] ", response)
+
         return response
     }
 
     // DELETE request
     async deleteCustomerData(customer_id) {
+        console.log("Delete customer ID ", customer_id)
         const dataManager = new DataManager({
             adaptor: new CustomerAdaptor(),
             url: this.baseUrl.replace(/\/$/, ''),
@@ -94,8 +112,10 @@ export class CustomerCrud {
         const endpoint = this.baseUrl
         try {
             const response = await axios.get(endpoint, { params: searchQueryParams });
+            console.log(response.data);
             return response.data;
         } catch (error) {
+            console.error(error);
             throw error;
         }
     }
@@ -105,6 +125,7 @@ export class CustomerCrud {
         const endpoint = this.baseUrl
         try {
             const response = await axios.get(endpoint, { params: filterQueryParams });
+            console.log(response.data);
             return response.data;
         } catch (error) {
             console.error(error);
@@ -117,6 +138,7 @@ export class CustomerCrud {
         const endpoint = this.baseUrl
         try {
             const response = await axios.get(endpoint, { params: sortQueryParams });
+            console.log(response.data);
             return response.data;
         } catch (error) {
             console.error(error);

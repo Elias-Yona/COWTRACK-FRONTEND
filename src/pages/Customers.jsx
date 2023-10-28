@@ -26,8 +26,9 @@ const Customers = () => {
     }
 
     // Handling different actions on grid
-    const handleDataAction = async (args) => {
+    async function handleDataAction(args) {
         console.log("Args ", args)
+        
         switch (args.requestType) {
             case 'add':
                 // Handle the addition of a new record
@@ -116,6 +117,30 @@ const Customers = () => {
                 // Handle other data actions as needed
                 break;
         }
+
+        // fields
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            for (var i = 0; i < this.columns.length; i++) {
+                if (this.columns[i].headerText == "Name") {
+                    this.columns[i].visible = true;
+                }
+                else if (this.columns[i].field == "user.first_name") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "user.last_name") {
+                    this.columns[i].visible = false;
+                }
+                else if (this.columns[i].field == "user.email") {
+                    this.columns[i].visible = false;
+                }
+                // else if (this.columns[i].field == "address") {
+                //     this.columns[i].visible = false;
+                // }
+                else if (this.columns[i].field == "user.username") {
+                    this.columns[i].visible = false;
+                }
+            }
+        }
     };
 
     function actionBegin(args) {
@@ -134,7 +159,7 @@ const Customers = () => {
                     this.columns[i].visible = true;
                 }
                 else if (this.columns[i].field === "customer_id") {
-                    this.columns[i].visible = false;
+                    this.columns[i].visible = true;
                 }
                 else if (this.columns[i].field == "address") {
                     this.columns[i].visible = true;
@@ -146,7 +171,6 @@ const Customers = () => {
         }
     }
 
-    
 
     return (
         <div lassName="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
